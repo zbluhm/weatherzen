@@ -19,7 +19,7 @@ def root():
     coords = lookupIP(ip)
     city = coords[2]
     weather = lookup_weather(coords)
-    return render_template('index.html', video='/static/outVod.webm', out="FUck u", ip=ip, city=city, weather=weather)
+    return render_template('index.html', video='/static/outVod.webm', ip=ip, city=city, weather=weather)
 
 
 def lookup_weather(coords):

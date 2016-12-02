@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Resource, Api
 from SaferProxyFix import SaferProxyFix
-import requests, json
+import requests, json, pyowm
 
 
 application = Flask(__name__)
@@ -10,21 +10,28 @@ application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:password@
 db = SQLAlchemy(application)
 api = Api(application)
 application.wsgi_app = SaferProxyFix(application.wsgi_app)
+owm = pyowm.OWM('2614605ff0159afbd9263ae7b5636a80')  # You MUST provide a valid API key
 
 
 @application.route('/')
 def root():
     ip = request.remote_addr
-    city = lookupIP(ip)
-    return render_template('index.html', video='/static/outVod.webm', out="FUck u", ip=ip, city=city)
+    coords = lookupIP(ip)
+    city = coords[2]
+    weather = lookup_weather(coords)
+    return render_template('index.html', video='/static/outVod.webm', out="FUck u", ip=ip, city=city, weather=weather)
+
+
+def lookup_weather(coords):
+    obs = owm.weather_at_coords(coords[1], coords[2])
+    return obs.get_weather().get_status()
 
 
 def lookupIP(ip):
-
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)
-    return output['city']
+    return output['longitude'], output['latitude'], output['city']
 
 
 if __name__ == '__main__':

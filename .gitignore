@@ -50,7 +50,7 @@ crashlytics-build.properties
 fabric.properties
 
 #video files
-*.webm
+
 .iml
 .elasticbeanstalk/
 SaferProxyFix.pyc

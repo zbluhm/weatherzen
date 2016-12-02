@@ -19,15 +19,19 @@ def root():
     coords = lookupIP(ip)
     city = coords[2]
     weather = lookup_weather(coords)
-    return render_template('index.html', video='/static/outVod.webm', ip=ip, city=city, weather=weather)
+    return render_template('index.html', video='/static/outVod.webm', ip=ip, city=city, weather=weather[0], temp=weather[1])
 
 
 def lookup_weather(coords):
-    obs = owm.weather_at_coords(coords[1], coords[2])
-    return obs.get_weather().get_status()
+    try:
+        obs = owm.weather_at_coords(float(coords[1]), float(coords[0]))
+    except AssertionError:
+        return 'error', 'error'
+    return obs.get_weather().get_status(), obs.get_weather().get_temperature('fahrenheit')['temp']
 
 
 def lookupIP(ip):
+    # ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)
@@ -39,5 +43,5 @@ if __name__ == '__main__':
     from models import Gifs
     from models import Userdata
     from models import Sounds
-    application.run(host='0.0.0.0')
+    application.run(host='0.0.0.0', debug=True)
 

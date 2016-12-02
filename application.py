@@ -36,7 +36,7 @@ def root():
         wtype = weather[0]
     vid_url = get_vid_url(wtype.lower())
     default = vid_url == ''
-    return render_template('index.html', video=vid_url, default=default, ip=ip, city=city, weather=weather[0], temp=weather[1])
+    return render_template('index.html', video=vid_url, default=default, ip=ip, city=city, weather=weather[2], temp=weather[1])
 
 
 def get_vid_url(wtype):
@@ -59,7 +59,7 @@ def lookup_weather(coords):
         obs = owm.weather_at_coords(float(coords[1]), float(coords[0]))
     except AssertionError:
         return 'error', 'error'
-    return obs.get_weather().get_status(), obs.get_weather().get_temperature('fahrenheit')['temp']
+    return obs.get_weather().get_status(), obs.get_weather().get_temperature('fahrenheit')['temp'], obs.get_weather().get_detailed_status()
 
 
 def lookupIP(ip):

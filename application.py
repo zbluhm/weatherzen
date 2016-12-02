@@ -19,7 +19,7 @@ def root():
     coords = lookupIP(ip)
     city = coords[2]
     weather = lookup_weather(coords)
-    return render_template('index.html', video='/static/outVod.webm', ip=ip, city=city, weather=weather[0], temp=weather[1])
+    return render_template('index.html', video='https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Videos/outVod.webm', ip=ip, city=city, weather=weather[0], temp=weather[1])
 
 
 def lookup_weather(coords):

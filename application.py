@@ -1,15 +1,14 @@
+import json
+import pyowm
+import requests
 from flask import Flask, request, render_template
-from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Resource, Api
+from flask_restful import Api
+from application.models import Types
+from application.models import Gifs
+from application import db
 from SaferProxyFix import SaferProxyFix
-import requests, json, pyowm
-
 
 application = Flask(__name__)
-application.config['SQLALCHEMY_POOL_RECYCLE'] = 299
-application.config['SQLALCHEMY_POOL_TIMEOUT'] = 20
-application.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:password@weathrzen.cbduqvubts9j.us-east-1.rds.amazonaws.com:3306/weathrzen'
-db = SQLAlchemy(application)
 api = Api(application)
 application.wsgi_app = SaferProxyFix(application.wsgi_app)
 owm = pyowm.OWM('2614605ff0159afbd9263ae7b5636a80')  # You MUST provide a valid API key
@@ -64,7 +63,7 @@ def lookup_weather(coords):
 
 
 def lookupIP(ip):
-    ip = '64.149.143.15'
+    # ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)
@@ -72,9 +71,5 @@ def lookupIP(ip):
 
 
 if __name__ == '__main__':
-    from models import Types
-    from models import Gifs
-    from models import Userdata
-    from models import Sounds
     application.run(host='0.0.0.0', debug=True)
 

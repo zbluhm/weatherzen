@@ -13,16 +13,30 @@
     <body>
 
         <!-- Add your site or application content here -->
+        <nav class="navbar">
+            <ul>
+                <li><a>{{ city }}</a></li>
+                <li><a>{{ weather }}</a></li>
+                <li><a>{{ temp }}&deg;F</a></li>
+                <li>
+                    <form class="zip_form">
+                    Search City: <input type="text" size=10 name="name">
+                    </form>
+                </li>
+            </ul>
+        </nav>
         <div class="content">
-            <h1 class="content__heading">Welcome To The WeathrZen Demo</h1>
-            <p class="content__teaser">{{ ip }}</p>
-            <p class="content__teaser">{{ city }}</p>
-            <p class="content__teaser">{{ weather }}: {{ temp }}&deg;</p>
+            <img src="/static/logo.png" class="logo">
+            <h1 class="content__heading">Welcome To The WeatherZen Demo</h1>
         </div><!-- /content -->
 
+        {% if default %}
+        <img src="/static/default.webp" class="bg">
+        {% else %}
         <video id="my-video" class="video" muted loop>
             <source src="{{ video }}" type="video/webm">
         </video><!-- /video -->
+        {% endif %}
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

@@ -5,7 +5,8 @@ class Types(db.Model):
     wid = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(80))
 
-    def __init__(self, type):
+    def __init__(self, wid, type):
+        self.wid = wid
         self.type = type
 
     def __repr__(self):

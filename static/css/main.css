@@ -63,6 +63,92 @@ body {
 /* =============================================================================
   CONTENT
 ============================================================================= */
+.zip_form input[type="text"] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    /* Other stuff: font-weight, font-size */
+    font-family: "Lato", sans-serif;
+    font-size: 25px;
+    outline: none;
+    color: #1d2120;
+}
+.zip_form {
+    text-decoration: none;
+    color: #f0eceb;
+    font-size: 25px;
+}
+.zip_form:hover{
+    color: #ccc;
+}
+.navbar {
+    position: relative;
+    z-index: 2;
+    max-width: 1020px;
+    text-align: center;
+}
+
+nav {
+    margin: 20px;
+    z-index: 2;
+}
+ul {
+  overflow: auto;
+  list-style-type: none;
+}
+
+li {
+  height: 40px;
+  float: left;
+  margin-right: 0px;
+  border-right: 1px solid #aaa;
+  padding: 0 20px;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  text-decoration: none;
+    color: #f0eceb;
+  font-size: 25px;
+  /*text-transform: uppercase;*/
+
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 1s ease;
+}
+
+li a:hover {
+    color: #ccc;
+}
+
+li.active a {
+  font-weight: bold;
+  color: #333;
+}
+.bg {
+  /* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+    z-index: 1;
+}
+.logo {
+    width:25%; /* you can use % */
+    height: auto;
+}
 .content {
     position: relative;
     top: 10%;
@@ -74,7 +160,7 @@ body {
 
 .content__heading {
     margin-bottom: 24px;
-    color: #f0eceb;
+    color: #1d2120;
     /*For light background use: #1d2120 */
     font-size: 44px;
 }

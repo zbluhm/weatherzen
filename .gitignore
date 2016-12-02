@@ -1,6 +1,5 @@
 .pyc
 # Elastic Beanstalk Files
-.elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
@@ -9,9 +8,10 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff:
-.idea/workspace.xml
 .idea/tasks.xml
-.idea/modules.xml
+.DS_Store
+.idea
+compiler.xml
 
 # Sensitive or high-churn files:
 .idea/dataSources/
@@ -50,5 +50,9 @@ crashlytics-build.properties
 fabric.properties
 
 #video files
-.webm
+*.webm
 .iml
+.elasticbeanstalk/
+SaferProxyFix.pyc
+application.pyc
+models.pyc

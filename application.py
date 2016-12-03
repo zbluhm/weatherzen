@@ -104,8 +104,11 @@ def get_vid_url(wtype):
 def store_user_data(wid, long, lat, ip):
     date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data = Userdata(ip=ip, datetime=date, wid=wid, longitude=long, latitude=lat)
-    db.session.merge(data)
-    db.session.commit()
+    try:
+        db.session.merge(data)
+        db.session.commit()
+    except:
+        db.session.rollback()
 
 
 def lookup_weather(coords, unit=None):
@@ -119,7 +122,7 @@ def lookup_weather(coords, unit=None):
 
 
 def lookupIP(ip):
-    ip = '64.149.143.15'
+    # ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)

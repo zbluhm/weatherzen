@@ -37,7 +37,7 @@ def root():
     vid_url = get_vid_url(wtype.lower())
     default = vid_url == ''
     return render_template('index.html', video=vid_url, default=default, ip=ip, city=city,
-                           weather=weather[2], temp=int(round(float(weather[1]))))
+                           weather=weather[2].title(), temp=int(round(float(weather[1]))))
 
 
 def get_vid_url(wtype):

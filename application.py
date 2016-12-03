@@ -23,7 +23,7 @@ def root():
     zip_form = ZipSearchForm(request.form)
     ip = request.remote_addr
     if request.method == 'POST' and zip_form.validate():
-        pass
+        print zip_form.zip.data
     coords = lookupIP(ip)
     city = coords[2]
     weather = lookup_weather(coords)
@@ -54,18 +54,15 @@ def get_vid_url(wtype):
     url = ''
     print(wtype)
     for item in db.session.query(Types.wid).filter(Types.type==wtype):
-        print(item)
         wid = item[0]
 
     for vid in db.session.query(Gifs.url).filter(Gifs.wid==wid):
-        print(vid)
         url = vid[0]
 
     return url, wid
 
 
 def store_user_data(wid, long, lat, ip):
-    print lat
     date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     data = Userdata(ip=ip, datetime=date, wid=wid, longitude=long, latitude=lat)
     db.session.merge(data)

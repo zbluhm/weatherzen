@@ -77,7 +77,7 @@ def lookup_weather(coords):
 
 
 def lookupIP(ip):
-    ip = '64.149.143.15'
+    # ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)

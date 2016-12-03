@@ -19,8 +19,9 @@
                 <li><a>{{ weather }}</a></li>
                 <li><a>{{ temp }}&deg;F</a></li>
                 <li>
-                    <form class="zip_form">
-                    Search City: <input type="text" size=10 name="name">
+                    <form class="zip_form" name="city_search">
+                        Search City:
+                        {{ form.city(size=10) }}
                     </form>
                 </li>
             </ul>

@@ -8,17 +8,19 @@ from application.models import Gifs
 from application.models import Userdata
 from application import db
 from SaferProxyFix import SaferProxyFix
-import time
+from application.forms import CitySearchForm
 import datetime
 
 application = Flask(__name__)
 api = Api(application)
 application.wsgi_app = SaferProxyFix(application.wsgi_app)
+application.secret_key = 'cC1YCIWOj9GgWspgNEo2'
 owm = pyowm.OWM('2614605ff0159afbd9263ae7b5636a80')  # You MUST provide a valid API key
 
 
 @application.route('/')
 def root():
+    city_form = CitySearchForm(request.form)
     ip = request.remote_addr
     coords = lookupIP(ip)
     city = coords[2]
@@ -42,7 +44,7 @@ def root():
     # store user data in db
     store_user_data(vid_url[1], coords[0], coords[1], ip)
     return render_template('index.html', video=vid_url[0], default=default, ip=ip, city=city,
-                           weather=weather[2].title(), temp=int(round(float(weather[1]))))
+                           weather=weather[2].title(), temp=int(round(float(weather[1]))), form=city_form)
 
 
 def get_vid_url(wtype):
@@ -77,7 +79,7 @@ def lookup_weather(coords):
 
 
 def lookupIP(ip):
-    # ip = '64.149.143.15'
+    ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)

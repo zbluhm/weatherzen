@@ -6,10 +6,12 @@ from flask_restful import Api
 from application.models import Types
 from application.models import Gifs
 from application.models import Userdata
+from application.models import Zips
 from application import db
 from SaferProxyFix import SaferProxyFix
 from application.forms import ZipSearchForm
 import datetime
+
 
 application = Flask(__name__)
 api = Api(application)
@@ -20,11 +22,15 @@ owm = pyowm.OWM('2614605ff0159afbd9263ae7b5636a80')  # You MUST provide a valid 
 
 @application.route('/', methods=('GET', 'POST'))
 def root():
-    zip_form = ZipSearchForm(request.form)
+    zip_form = ZipSearchForm()
     ip = request.remote_addr
-    if request.method == 'POST' and zip_form.validate():
-        print zip_form.zip.data
     coords = lookupIP(ip)
+    if not zip_form.validate_on_submit():
+        print zip_form.errors
+    else:
+        print zip_form.zip.data
+        coords = convert_zip(zip_form.data)
+
     city = coords[2]
     weather = lookup_weather(coords)
     if weather[0].lower() == 'haze':
@@ -78,12 +84,19 @@ def lookup_weather(coords):
 
 
 def lookupIP(ip):
-    ip = '64.149.143.15'
+    # ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)
     return output['longitude'], output['latitude'], output['city']
 
+
+def convert_zip(zip):
+    item = Zips.query.filter_by(zip=zip['zip']).first()
+    print(item)
+    coords = item.longitude, item.latitude, item.city
+
+    return coords
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', debug=True)

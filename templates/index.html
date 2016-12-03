@@ -19,9 +19,10 @@
                 <li><a>{{ weather }}</a></li>
                 <li><a>{{ temp }}&deg;F</a></li>
                 <li>
-                    <form class="zip_form" name="zip_search">
+                    <form class="zip_form" name="zip_search" method="POST">
+                        {{ form.hidden_tag() }}
                         Search Zip:
-                        {{ form.zip(size=10) }}
+                        {{ form.zip(size=6) }}
                     </form>
                 </li>
             </ul>

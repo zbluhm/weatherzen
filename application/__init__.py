@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
 application = Flask(__name__)
 application.config['SQLALCHEMY_POOL_RECYCLE'] = 280
 application.config['SQLALCHEMY_POOL_TIMEOUT'] = 100

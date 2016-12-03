@@ -15,10 +15,10 @@ class Types(db.Model):
 
 class Userdata(db.Model):
     ip = db.Column(db.String(39), primary_key=True)
+    wid = db.Column(db.Integer, db.ForeignKey('types.wid'))
     datetime = db.Column(db.DateTime, primary_key=True)
+    latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    latitude = db.column(db.Float)
-    wid = db.column(db.Integer, db.ForeignKey('types.wid'))
 
     def __init__(self, ip, datetime, longitude, latitude, wid):
         self.datetime = datetime
@@ -53,3 +53,4 @@ class Sounds(db.Model):
 
     def __repr__(self):
         return '<URL %r>' % self.url
+

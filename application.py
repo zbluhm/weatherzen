@@ -5,8 +5,11 @@ from flask import Flask, request, render_template
 from flask_restful import Api
 from application.models import Types
 from application.models import Gifs
+from application.models import Userdata
 from application import db
 from SaferProxyFix import SaferProxyFix
+import time
+import datetime
 
 application = Flask(__name__)
 api = Api(application)
@@ -35,8 +38,10 @@ def root():
     else:
         wtype = weather[0]
     vid_url = get_vid_url(wtype.lower())
-    default = vid_url == ''
-    return render_template('index.html', video=vid_url, default=default, ip=ip, city=city,
+    default = vid_url[0] == ''
+    # store user data in db
+    store_user_data(vid_url[1], coords[0], coords[1], ip)
+    return render_template('index.html', video=vid_url[0], default=default, ip=ip, city=city,
                            weather=weather[2].title(), temp=int(round(float(weather[1]))))
 
 
@@ -52,7 +57,15 @@ def get_vid_url(wtype):
         print(vid)
         url = vid[0]
 
-    return url
+    return url, wid
+
+
+def store_user_data(wid, long, lat, ip):
+    print lat
+    date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    data = Userdata(ip=ip, datetime=date, wid=wid, longitude=long, latitude=lat)
+    db.session.merge(data)
+    db.session.commit()
 
 
 def lookup_weather(coords):
@@ -64,7 +77,7 @@ def lookup_weather(coords):
 
 
 def lookupIP(ip):
-    # ip = '64.149.143.15'
+    ip = '64.149.143.15'
     data = requests.get(url='http://freegeoip.net/json/{ip}'.format(ip=ip))
     binary = data.content
     output = json.loads(binary)

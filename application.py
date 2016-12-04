@@ -84,10 +84,11 @@ def load_main_view():
     default = vid_url[0] == ''
     # store user data in db
     store_user_data(vid_url[1], coords[0], coords[1], ip)
+
+    # TODO: need values 'humidity' and 'pressure' to control the gauges
     return render_template('index.html', video=vid_url[0], default=default, ip=ip, city=city,
                            weather=weather[2].title(), temp=int(round(float(weather[1]))),
                            form=zip_form, unit=unit, f_class=f_class, c_class=c_class)
-
 
 def get_vid_url(wtype):
     wid = Types.query.filter_by(type=wtype).all()[0].wid

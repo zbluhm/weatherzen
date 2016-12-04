@@ -63,6 +63,26 @@ body {
 /* =============================================================================
   CONTENT
 ============================================================================= */
+.landing_form {
+    width: 280px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    position: absolute;
+    z-index: 10;
+    padding: 10px 60px 80px;
+    left: 50%;
+    margin-left: -230px;
+}
+.landing_form input[type="text"] {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    /* Other stuff: font-weight, font-size */
+    font-family: "Lato", sans-serif;
+    font-size: 25px;
+    outline: none;
+    color: #1d2120;
+}
 .zip_form input[type="text"] {
     background-color: transparent;
     border: none;
@@ -174,16 +194,6 @@ li a.active {
     margin-bottom: 24px;
     color: #f0eceb;
     font-size: 22px;
-}
-
-.content__cta {
-    display: inline-block;
-    margin: 0;
-    padding: 12px 48px;
-    color: #ff3c64;
-    font-size: 22px;
-    text-decoration: none;
-    border: solid 4px #ff3c64;
 }
 
 /* =============================================================================

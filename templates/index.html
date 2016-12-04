@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
 
-        <link rel="stylesheet" href="css/normalize.css">
+
         <link rel="stylesheet" href="/static/css/main.css">
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
 
@@ -35,9 +35,79 @@
             <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/logo_black_trans.png" class="logo">
             <h1 class="content__heading">Welcome To The WeatherZen Demo</h1>
 
-            <canvas id="temperature"></canvas>
-            <canvas id="humidity"></canvas>
-            <canvas id="pressure"></canvas>
+                <div id="gauge-container" style="background-color: white;">
+                    <div id="temp-container" class="gauge-cont" style="float: left">
+                        <canvas id="temperature"></canvas>
+                        <h1 style="text-align: center">{{ temp }}&deg;{{ unit }}</h1>
+                        <p style="text-align: center">Temp</p>
+                    </div>
+
+                    <div id="humidity-container" class="gauge-cont"style="float: left">
+                        <canvas id="humidity"></canvas>
+                        <h1 style="text-align: center">{{ humidity }}%</h1>
+                        <p style="text-align: center">Humidity</p>
+                    </div>
+
+                    <div id="pressure-container" class="gauge-cont"style="float: left">
+                        <canvas id="pressure"></canvas>
+                        <h1 style="text-align: center">{{ pressure }} mB</h1>
+                        <p style="text-align: center">Pressure</p>
+                    </div>
+
+                </div>
+
+
+                <script>
+
+
+                    var opts = {
+                        lines: 12, // The number of lines to draw
+                        angle: 0, // The length of each line
+                        lineWidth: 0.04, // The line thickness
+                        pointer: {
+                            length: 1, // The radius of the inner circle
+                            strokeWidth: 0.03, // The rotation offset
+                            color: '#000000' // Fill color
+                        },
+                        limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+                        fontSize: 100,
+                        colorStart: '#1d2120',   // Colors
+                        colorStop: '#1d2120',    // just experiment with them
+                        strokeColor: '#E0E0E0',   // to see which ones work best for you
+                        generateGradient: true
+                    };
+
+                    var temperature_target = document.getElementById('temperature'); // your canvas element
+                    temperature_target.width = 125;
+                    temperature_target.height = 50;
+                    var temperature_gauge = new Gauge(temperature_target).setOptions(opts); // create sexy gauge!
+                    temperature_gauge.maxValue = 220; // set max gauge value
+                    temperature_gauge.animationSpeed = 32; // set animation speed (32 is default value)
+                    temperature_gauge.set({{ temp }} + 80); // set actual value
+
+                    var humidity_target = document.getElementById('humidity'); // your canvas element
+                    humidity_target.width = 125;
+                    humidity_target.height = 50;
+                    var humidity_gauge = new Gauge(humidity_target).setOptions(opts); // create sexy gauge!
+                    humidity_gauge.maxValue = 100; // set max gauge value
+                    humidity_gauge.animationSpeed = 32; // set animation speed (32 is default value)
+                   // humidity_gauge.set({{ humidity }}); // set actual value
+                    humidity_gauge.set(69); // set actual value
+
+                    var pressure_target = document.getElementById('pressure'); // your canvas element
+                    pressure_target.width = 125;
+                    pressure_target.height = 50;
+                    var pressure_gauge = new Gauge(pressure_target).setOptions(opts); // create sexy gauge!
+                    pressure_gauge.maxValue = 80; // set max gauge value
+                    pressure_gauge.animationSpeed = 32; // set animation speed (32 is default value)
+                    //pressure_gauge.set({{ pressure }}-970); // set actual value
+                    pressure_gauge.set(1040-970); // set actual value
+
+
+
+
+                </script>
+
 
         </div><!-- /content -->
 
@@ -48,6 +118,8 @@
             <source src="{{ video }}" type="video/webm">
         </video><!-- /video -->
         {% endif %}
+
+        <!-- Gauge -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>

@@ -117,7 +117,6 @@ li:last-child {
 li a {
   text-decoration: none;
     color: #f0eceb;
-    
   font-size: 25px;
   /*text-transform: uppercase;*/
 
@@ -126,7 +125,6 @@ li a {
   -o-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
   transition: all 1s ease;
-
 }
 
 li a:hover {

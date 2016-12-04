@@ -17,13 +17,15 @@
             <ul>
                 <li><a>{{ city }}</a></li>
                 <li><a>{{ weather }}</a></li>
-                <li><a>{{ temp }}&deg;F</a></li>
+                <li><a>{{ temp }}&deg;{{ unit }}</a></li>
                 <li>
-                    <form class="zip_form" name="zip_search">
+                    <form class="zip_form" name="zip_search" method="POST">
+                        {{ form.hidden_tag() }}
                         Search Zip:
-                        {{ form.zip(size=10) }}
+                        {{ form.zip(size=5) }}
                     </form>
                 </li>
+                <li><a href="/setcookief" class={{ f_class }}>&deg;F</a><a href="/setcookiec" class="{{ c_class }}">&deg;C</a></li>
             </ul>
         </nav>
         <div class="content">

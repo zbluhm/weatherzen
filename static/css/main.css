@@ -131,9 +131,9 @@ li a:hover {
     color: #ccc;
 }
 
-li.active a {
-  font-weight: bold;
-  color: #333;
+li a.active {
+    font-weight: bold;
+    color: #333;
 }
 .bg {
   /* Set rules to fill background */

@@ -90,13 +90,11 @@ def load_main_view():
 
 
 def get_vid_url(wtype):
-    wid = 0
-    url = ''
-    for item in db.session.query(Types.wid).filter(Types.type==wtype):
-        wid = item[0]
-
-    for vid in db.session.query(Gifs.url).filter(Gifs.wid==wid):
-        url = vid[0]
+    wid = Types.query.filter_by(type=wtype).all()[0].wid
+    try:
+        url = random.choice(Gifs.query.filter_by(wid=wid).all()).url
+    except:
+        url = ''
 
     return url, wid
 
@@ -112,6 +110,8 @@ def store_user_data(wid, long, lat, ip):
 
 
 def lookup_weather(coords, unit=None):
+    print owm._api._cache.size()
+    print owm._api._cache._table
     if unit is None:
         unit = 'fahrenheit'
     try:
@@ -130,10 +130,12 @@ def lookupIP(ip):
 
 
 def convert_zip(zip):
-    item=random.choice(Zips.query.filter_by(zip=zip['zip']).all())
-    coords = item.longitude, item.latitude, item.city
-
-    return coords
+    try:
+        item=random.choice(Zips.query.filter_by(zip=zip['zip']).all())
+        coords = item.longitude, item.latitude, item.city
+        return coords
+    except:
+        return None
 
 if __name__ == '__main__':
     application.run(host='0.0.0.0', debug=True)

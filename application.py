@@ -26,6 +26,12 @@ def root():
     return load_main_view()
 
 
+@application.route('/landing', methods=('GET', 'POST'))
+def ip_error_landing():
+    zip_form = ZipSearchForm()
+    return render_template('landing.html', form=zip_form)
+
+
 @application.route('/setcookief', methods=['POST', 'GET'])
 def setcookief():
     print 'here'

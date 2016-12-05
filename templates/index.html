@@ -91,8 +91,8 @@
                     var humidity_gauge = new Gauge(humidity_target).setOptions(opts); // create sexy gauge!
                     humidity_gauge.maxValue = 100; // set max gauge value
                     humidity_gauge.animationSpeed = 32; // set animation speed (32 is default value)
-                   // humidity_gauge.set({{ humidity }}); // set actual value
-                    humidity_gauge.set(69); // set actual value
+                    humidity_gauge.set({{ humidity }}); // set actual value
+                    //humidity_gauge.set(69); // set actual value
 
                     var pressure_target = document.getElementById('pressure'); // your canvas element
                     pressure_target.width = 125;
@@ -100,8 +100,8 @@
                     var pressure_gauge = new Gauge(pressure_target).setOptions(opts); // create sexy gauge!
                     pressure_gauge.maxValue = 80; // set max gauge value
                     pressure_gauge.animationSpeed = 32; // set animation speed (32 is default value)
-                    //pressure_gauge.set({{ pressure }}-970); // set actual value
-                    pressure_gauge.set(1040-970); // set actual value
+                    pressure_gauge.set({{ pressure }}-970); // set actual value
+                    //pressure_gauge.set(1040-970); // set actual value
 
 
 

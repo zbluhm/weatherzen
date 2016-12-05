@@ -94,7 +94,8 @@ def load_main_view():
     # TODO: need values 'humidity' and 'pressure' to control the gauges
     return render_template('index.html', video=vid_url[0], default=default, ip=ip, city=city,
                            weather=weather[2].title(), temp=int(round(float(weather[1]))),
-                           form=zip_form, unit=unit, f_class=f_class, c_class=c_class)
+                           form=zip_form, unit=unit, f_class=f_class, c_class=c_class, humidity=weather[3], pressure=weather[4]['press'])
+
 
 def get_vid_url(wtype):
     wid = Types.query.filter_by(type=wtype).all()[0].wid
@@ -125,7 +126,8 @@ def lookup_weather(coords, unit=None):
         obs = owm.weather_at_coords(float(coords[1]), float(coords[0]))
     except AssertionError:
         return 'error', 'error'
-    return obs.get_weather().get_status(), obs.get_weather().get_temperature(unit)['temp'], obs.get_weather().get_detailed_status()
+    return obs.get_weather().get_status(), obs.get_weather().get_temperature(unit)['temp'],\
+           obs.get_weather().get_detailed_status(), obs.get_weather().get_humidity(), obs.get_weather().get_pressure()
 
 
 def lookupIP(ip):
@@ -145,5 +147,5 @@ def convert_zip(zip):
         return None
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', debug=True)
+    application.run(host='0.0.0.0', debug=True, threaded=True)
 

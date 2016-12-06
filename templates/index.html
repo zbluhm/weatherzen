@@ -35,23 +35,23 @@
             <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/logo_black_trans.png" class="logo">
             <h1 class="content__heading">Welcome To The WeatherZen Demo</h1>
 
-                <div id="gauge-container">
+                <div id="gauge-container" style="font-weight: bold;">
                     <div id="temp-container" class="gauge-cont" style="float: left;">
                         <canvas id="temperature"></canvas>
-                        <h1 style="text-align: center" id="temp-text">{{ temp }}&deg;{{ unit }}</h1>
-                        <p style="text-align: center">Temp</p>
+                        <h1 style="text-align: center; color: #f0eceb" id="temp-text">{{ temp }}&deg;{{ unit }}</h1>
+                        <p style="text-align: center; color: #f0eceb">Temp</p>
                     </div>
 
                     <div id="humidity-container" class="gauge-cont" style="float: left">
                         <canvas id="humidity"></canvas>
-                        <h1 style="text-align: center">{{ humidity }}%</h1>
-                        <p style="text-align: center">Humidity</p>
+                        <h1 style="text-align: center; color: #f0eceb;">{{ humidity }}%</h1>
+                        <p style="text-align: center; color: #f0eceb;">Humidity</p>
                     </div>
 
                     <div id="pressure-container" class="gauge-cont" style="float: left">
                         <canvas id="pressure"></canvas>
-                        <h1 style="text-align: center">{{ pressure }} mB</h1>
-                        <p style="text-align: center">Pressure</p>
+                        <h1 style="text-align: center; color: #f0eceb">{{ pressure }} mB</h1>
+                        <p style="text-align: center; color: #f0eceb">Pressure</p>
                     </div>
 
                 </div>
@@ -63,10 +63,10 @@
                     var opts = {
                         lines: 20, // The number of lines to draw
                         angle: 0, // The length of each line
-                        lineWidth: 0.03, // The line thickness
+                        lineWidth: 0.09, // The line thickness
                         pointer: {
                             length: 1, // The radius of the inner circle
-                            strokeWidth: 0.03, // The rotation offset
+                            strokeWidth: 0.05, // The rotation offset
                             color: '#f0eceb' // Fill color
                         },
                         limitMax: 'false',   // If true, the pointer will not go past the end of the gauge

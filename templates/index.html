@@ -16,7 +16,7 @@
     <body>
 
         <!-- Add your site or application content here -->
-        <nav class="navbar">
+        <nav class="navbar" >
             <ul>
                 <li><a>{{ city }}</a></li>
                 <li><a>{{ weather }}</a></li>
@@ -35,20 +35,20 @@
             <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/logo_black_trans.png" class="logo">
             <h1 class="content__heading">Welcome To The WeatherZen Demo</h1>
 
-                <div id="gauge-container" style="background-color: black;">
-                    <div id="temp-container" class="gauge-cont" style="float: left">
+                <div id="gauge-container">
+                    <div id="temp-container" class="gauge-cont" style="float: left;">
                         <canvas id="temperature"></canvas>
-                        <h1 style="text-align: center">{{ temp }}&deg;{{ unit }}</h1>
+                        <h1 style="text-align: center" id="temp-text">{{ temp }}&deg;{{ unit }}</h1>
                         <p style="text-align: center">Temp</p>
                     </div>
 
-                    <div id="humidity-container" class="gauge-cont"style="float: left">
+                    <div id="humidity-container" class="gauge-cont" style="float: left">
                         <canvas id="humidity"></canvas>
                         <h1 style="text-align: center">{{ humidity }}%</h1>
                         <p style="text-align: center">Humidity</p>
                     </div>
 
-                    <div id="pressure-container" class="gauge-cont"style="float: left">
+                    <div id="pressure-container" class="gauge-cont" style="float: left">
                         <canvas id="pressure"></canvas>
                         <h1 style="text-align: center">{{ pressure }} mB</h1>
                         <p style="text-align: center">Pressure</p>
@@ -67,41 +67,45 @@
                         pointer: {
                             length: 1, // The radius of the inner circle
                             strokeWidth: 0.03, // The rotation offset
-                            color: '#f0eceb;' // Fill color
+                            color: '#f0eceb' // Fill color
                         },
                         limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
                         fontSize: 100,
-                        colorStart: '#1d2120',   // Colors
-                        colorStop: '#1d2120',    // just experiment with them
+                        colorStart: '#f0eceb',   // Colors
+                        colorStop: '#f0eceb',    // just experiment with them
                         strokeColor: '#f0eceb;',   // to see which ones work best for you
                         generateGradient: true
                     };
 
                     var temperature_target = document.getElementById('temperature'); // your canvas element
-                    temperature_target.width = 125;
-                    temperature_target.height = 50;
+                    temperature_target.width = 200;
+                    temperature_target.height = 100;
                     var temperature_gauge = new Gauge(temperature_target).setOptions(opts); // create sexy gauge!
-                    temperature_gauge.maxValue = 220; // set max gauge value
                     temperature_gauge.animationSpeed = 100; // set animation speed (32 is default value)
-                    temperature_gauge.set({{ temp }} + 80); // set actual value
+                    if ('{{ unit }}' == 'F') {
+                        temperature_gauge.maxValue = 220; // set max gauge value
+                        temperature_gauge.set({{ temp }} + 80); // set actual value
+                    }
+                    else {
+                        temperature_gauge.maxValue = 104; // set max gauge value
+                        temperature_gauge.set({{ temp }} + 47); // set actual value
+                    }
 
                     var humidity_target = document.getElementById('humidity'); // your canvas element
-                    humidity_target.width = 125;
-                    humidity_target.height = 50;
+                    humidity_target.width = 200;
+                    humidity_target.height = 100;
                     var humidity_gauge = new Gauge(humidity_target).setOptions(opts); // create sexy gauge!
                     humidity_gauge.maxValue = 100; // set max gauge value
                     humidity_gauge.animationSpeed = 100; // set animation speed (32 is default value)
                     humidity_gauge.set({{ humidity }}); // set actual value
-                    //humidity_gauge.set(69); // set actual value
 
                     var pressure_target = document.getElementById('pressure'); // your canvas element
-                    pressure_target.width = 125;
-                    pressure_target.height = 50;
+                    pressure_target.width = 200;
+                    pressure_target.height = 100;
                     var pressure_gauge = new Gauge(pressure_target).setOptions(opts); // create sexy gauge!
                     pressure_gauge.maxValue = 80; // set max gauge value
                     pressure_gauge.animationSpeed = 100; // set animation speed (32 is default value)
                     pressure_gauge.set({{ pressure }}-970); // set actual value
-                    //pressure_gauge.set(1040-970); // set actual value
 
 
 
@@ -111,13 +115,17 @@
 
         </div><!-- /content -->
 
+
+
         {% if default %}
-        <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/default.webp" class="bg">
+            <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/default.webp" class="bg">
         {% else %}
-        <video id="my-video" class="video" muted loop>
-            <source src="{{ video }}" type="video/webm">
-        </video><!-- /video -->
+            <video id="my-video" class="video" muted loop>
+                <source src="{{ video }}" type="video/webm">
+            </video><!-- /video -->
         {% endif %}
+
+
 
         <!-- Gauge -->
 

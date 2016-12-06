@@ -5,6 +5,7 @@ html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
+    background-color: lightgray;
 }
 
 /*
@@ -58,6 +59,7 @@ body {
     font-size: 16px;
     font-family: "Lato", sans-serif;
     line-height: 1.5;
+    overflow: hidden;
 }
 
 /* =============================================================================
@@ -92,11 +94,13 @@ body {
     font-size: 25px;
     outline: none;
     color: #1d2120;
+
 }
 .zip_form {
     text-decoration: none;
     color: #f0eceb;
     font-size: 25px;
+    width: 200px;
     -webkit-transition: all 1s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -110,7 +114,8 @@ body {
     position: relative;
     z-index: 2;
     max-width: 1020px;
-    text-align: center;
+    text-align: left;
+
 }
 
 nav {
@@ -158,7 +163,7 @@ li a.active {
 .bg {
   /* Set rules to fill background */
   min-height: 100%;
-  min-width: 1024px;
+  min-width: 1200px;
 
   /* Set up proportionate scaling */
   width: 100%;
@@ -180,7 +185,11 @@ li a.active {
     z-index: 2;
     margin: 0 auto;
     max-width: 720px;
+    height: 100%;
+    min-height: 500px;
+    max-height: 720px;
     text-align: center;
+
 }
 
 .content__heading {
@@ -195,6 +204,11 @@ li a.active {
     color: #f0eceb;
     font-size: 22px;
 }
+#gauge-container {
+    position:absolute;
+    bottom:0;
+    right:0;
+}
 
 /* =============================================================================
   VIDEO
@@ -205,11 +219,56 @@ li a.active {
     left: 50%;
     z-index: 1;
     max-width: 100%;
-    width: auto;
+    min-height: 100px;
+    width: 100%;
     height: auto;
     -webkit-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+.fullscreen-bg {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+}
+
+.fullscreen-bg__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .fullscreen-bg__video {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .fullscreen-bg {
+        background: url('https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/default.webp') center center / cover no-repeat;
+    }
+
+    .fullscreen-bg__video {
+        display: none;
+    }
 }
 /* =============================================================================
   HELPER CLASSES

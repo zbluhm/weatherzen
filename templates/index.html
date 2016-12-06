@@ -16,7 +16,8 @@
     <body>
 
         <!-- Add your site or application content here -->
-        <nav class="navbar" >
+        <div class="main-container">
+            <nav class="navbar" >
             <ul>
                 <li><a>{{ city }}</a></li>
                 <li><a>{{ weather }}</a></li>
@@ -35,23 +36,23 @@
             <img src="https://s3.amazonaws.com/elasticbeanstalk-us-east-1-830211144972/Images/logo_black_trans.png" class="logo">
             <h1 class="content__heading">Welcome To The WeatherZen Demo</h1>
 
-                <div id="gauge-container" style="font-weight: bold;">
-                    <div id="temp-container" class="gauge-cont" style="float: left;">
+                <div id="gauge-container">
+                    <div id="temp-container" class="radial-shadow" style="float: left;">
                         <canvas id="temperature"></canvas>
-                        <h1 style="text-align: center; color: #f0eceb" id="temp-text">{{ temp }}&deg;{{ unit }}</h1>
-                        <p style="text-align: center; color: #f0eceb">Temp</p>
+                        <h1 style="text-align: center; color: #f0eceb" id="temp-text" class="radial-shadow">{{ temp }}&deg;{{ unit }}</h1>
+                        <p style="text-align: center; color: #f0eceb" class="radial-shadow">Temp</p>
                     </div>
 
-                    <div id="humidity-container" class="gauge-cont" style="float: left">
+                    <div id="humidity-container" class="radial-shadow" style="float: left">
                         <canvas id="humidity"></canvas>
-                        <h1 style="text-align: center; color: #f0eceb;">{{ humidity }}%</h1>
-                        <p style="text-align: center; color: #f0eceb;">Humidity</p>
+                        <h1 style="text-align: center; color: #f0eceb;" class="radial-shadow">{{ humidity }}%</h1>
+                        <p style="text-align: center; color: #f0eceb;" class="radial-shadow">Humidity</p>
                     </div>
 
-                    <div id="pressure-container" class="gauge-cont" style="float: left">
+                    <div id="pressure-container" class="radial-shadow" style="float: left">
                         <canvas id="pressure"></canvas>
-                        <h1 style="text-align: center; color: #f0eceb">{{ pressure }} mB</h1>
-                        <p style="text-align: center; color: #f0eceb">Pressure</p>
+                        <h1 style="text-align: center; color: #f0eceb" class="radial-shadow">{{ pressure }} mB</h1>
+                        <p style="text-align: center; color: #f0eceb" class="radial-shadow">Pressure</p>
                     </div>
 
                 </div>
@@ -114,6 +115,9 @@
 
 
         </div><!-- /content -->
+
+        </div>
+
 
 
 

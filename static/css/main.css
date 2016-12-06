@@ -181,8 +181,11 @@ li a.active {
     z-index: 1;
 }
 .logo {
-    width:25%; /* you can use % */
+    position: fixed;
+    width: 10%; /* you can use % */
     height: auto;
+    top: 15px;
+    right: 15px;
 }
 
 .content {

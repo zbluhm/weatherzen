@@ -20,7 +20,6 @@
             <ul>
                 <li><a>{{ city }}</a></li>
                 <li><a>{{ weather }}</a></li>
-                <li><a>{{ temp }}&deg;{{ unit }}</a></li>
                 <li>
                     <form class="zip_form" name="zip_search" method="POST">
                         {{ form.hidden_tag() }}
@@ -28,7 +27,8 @@
                         {{ form.zip(size=5) }}
                     </form>
                 </li>
-                <li><a href="/setcookief" class={{ f_class }}>&deg;F</a><a href="/setcookiec" class="{{ c_class }}">&deg;C</a></li>
+                <li><a href="#" id="f_btn" onclick="convertUnits('f')" class={{ f_class }}>&deg;F</a>
+                    <a href="#" id="c_btn" onclick="convertUnits('c')" class="{{ c_class }}">&deg;C</a></li>
             </ul>
         </nav>
         <div class="content">
@@ -131,6 +131,38 @@
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
+            function convertUnits(unit) {
+                if (unit == 'f') {
+                    //convert from c to f
+                    if (document.getElementById("temp-text").innerHTML.includes("C")) {
+                        var temp = parseInt(document.getElementById("temp-text").innerHTML.replace(/\D/g, ''));
+                        document.getElementById("temp-text").innerHTML = Math.round((temp * (9 / 5)) + 32) + "&deg;F";
+                        document.getElementById("f_btn").className = "active";
+                        document.getElementById("c_btn").className = "";
+                        createCookie('unit', 'fahrenheit');
+                    }
+
+                } else {
+                    //convert from f to c
+                    if (document.getElementById("temp-text").innerHTML.includes("F")) {
+                        temp = parseInt(document.getElementById("temp-text").innerHTML.replace(/\D/g, ''));
+                        document.getElementById("temp-text").innerHTML = Math.round(((temp - 32) * (5/9))) + "&deg;C";
+                        document.getElementById("c_btn").className = "active";
+                        document.getElementById("f_btn").className = "";
+                        createCookie('unit', 'celsius');
+                    }
+
+                }
+            }
+            function createCookie(name, value, days) {
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    var expires = "; expires=" + date.toGMTString();
+                }
+                else var expires = "";
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
 
             (function() {
                 /**

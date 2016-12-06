@@ -206,7 +206,6 @@ li a.active {
 }
 #gauge-container {
     position:absolute;
-    bottom:0;
     right:0;
 }
 

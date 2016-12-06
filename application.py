@@ -26,28 +26,6 @@ def root():
     return load_main_view()
 
 
-@application.route('/landing', methods=('GET', 'POST'))
-def ip_error_landing():
-    zip_form = ZipSearchForm()
-    return render_template('landing.html', form=zip_form)
-
-
-@application.route('/setcookief', methods=['POST', 'GET'])
-def setcookief():
-    print 'here'
-    response = make_response(redirect('/'))
-    response.set_cookie('unit', 'fahrenheit')
-    return response
-
-
-@application.route('/setcookiec', methods=['POST', 'GET'])
-def setcookiec():
-    print 'here'
-    response = make_response(redirect('/'))
-    response.set_cookie('unit', 'celsius')
-    return response
-
-
 def load_main_view():
     unit = 'F'
     f_class = "active"
@@ -82,6 +60,8 @@ def load_main_view():
         wtype = 'rain'
     elif weather[0].lower() == 'hurricane':
         wtype = 'rain'
+    elif weather[0].lower() == 'drizzle':
+        wtype = 'rain'
     elif weather[0].lower() == 'clear':
         wtype = 'sun'
     else:
@@ -98,6 +78,7 @@ def load_main_view():
 
 
 def get_vid_url(wtype):
+    print wtype
     wid = Types.query.filter_by(type=wtype).all()[0].wid
     try:
         url = random.choice(Gifs.query.filter_by(wid=wid).all()).url

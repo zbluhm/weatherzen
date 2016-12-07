@@ -1,7 +1,7 @@
 import json
 import pyowm
 import requests
-from flask import Flask, request, render_template, redirect, make_response
+from flask import Flask, request, render_template
 from flask_restful import Api
 from application.models import Types
 from application.models import Gifs

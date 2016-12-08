@@ -13,14 +13,15 @@ function getDate() {
 
 function timer() {
     setTimeout(timer, 1000);
-    var d = new Date();
+    var d1 = new Date();
+    var d = new Date(d1.getUTCFullYear(), d1.getUTCMonth(), d1.getUTCDate(), d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds())
     var hours = d.getHours();
     var minutes = d.getMinutes();
     var ampm = hours <= 11 ? 'am' : 'pm';
     time.innerHTML = [hours % 12,
             (minutes < 10 ? "0" + minutes : minutes)
         ].join(':') + ampm;
-    setTimeout(timer, 1000);
+    setTimeout(timer, 10000);
 }
 
 getDate();

@@ -55,23 +55,6 @@ class Sounds(db.Model):
         return '<URL %r>' % self.url
 
 
-class Zips(db.Model):
-    zip = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(15), primary_key=True)
-    latitude = db.Column(db.Float)
-    longitude = db.Column(db.Float)
-    timezone = db.Column(db.Integer)
-
-    def __init__(self, zip, city, latitude, longitude, timezone):
-        self.zip = zip
-        self.city = city
-        self.latitude = latitude
-        self.longitude = longitude
-        self.timezone = timezone
-
-    def __repr__(self):
-        return '<Zip %r>' % self.zip
-
 class Zipsnew(db.Model):
     zip = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(15), primary_key=True)

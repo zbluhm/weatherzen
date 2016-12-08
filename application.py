@@ -38,10 +38,11 @@ def load_main_view():
     zip_form = ZipSearchForm()
     ip = request.remote_addr
     coords = lookupIP(ip)
+    zip_code = None
     if not zip_form.validate_on_submit():
         print zip_form.errors
     else:
-        print zip_form.zip.data
+        zip_code = zip_form.data
         dbcoords = convert_zip(zip_form.data)
         if dbcoords is None:
             pass
@@ -70,11 +71,17 @@ def load_main_view():
     default = vid_url[0] == ''
     # store user data in db
     store_user_data(vid_url[1], coords[0], coords[1], ip)
-
-    # TODO: need values 'humidity' and 'pressure' to control the gauges
-    return render_template('index.html', video=vid_url[0], default=default, ip=ip, city=city,
-                           weather=weather[2].title(), temp=int(round(float(weather[1]))),
-                           form=zip_form, unit=unit, f_class=f_class, c_class=c_class, humidity=weather[3], pressure=weather[4]['press'])
+    timezone = get_timezone(zip_code)
+    if zip_code is None:
+        zip_code = -1
+        return render_template('index.html', timezone=zip_code, video=vid_url[0], default=default, ip=ip, city=city,
+                               weather=weather[2].title(), temp=int(round(float(weather[1]))),
+                               form=zip_form, unit=unit, f_class=f_class, c_class=c_class, humidity=weather[3],
+                               pressure=weather[4]['press'])
+    else:
+        return render_template('index.html', timezone=timezone, video=vid_url[0], default=default, ip=ip, city=city,
+                            weather=weather[2].title(), temp=int(round(float(weather[1]))),
+                            form=zip_form, unit=unit, f_class=f_class, c_class=c_class, humidity=weather[3], pressure=weather[4]['press'])
 
 
 def get_vid_url(wtype):
@@ -86,6 +93,13 @@ def get_vid_url(wtype):
         url = ''
 
     return url, wid
+
+
+def get_timezone(zipcode):
+    try:
+        return Zips.query.filter_by(zip=zipcode).all()[0].timezone
+    except:
+        return None
 
 
 def store_user_data(wid, long, lat, ip):

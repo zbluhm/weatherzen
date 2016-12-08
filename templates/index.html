@@ -37,7 +37,39 @@
 
                 <p id="date" class="date"></p>
                 <p id="time" class="time"></p>
-                <script src="/static/js/date.js"></script>
+                <script>
+                    var offset = {{ timezone }};
+                    var d = new Date();
+                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+                    var date = document.getElementById("date");
+                    var time = document.getElementById("time");
+
+                    function getDate() {
+                        date.innerHTML = monthNames[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+                    }
+
+                    function timer() {
+                        setTimeout(timer, 1000);
+                        var d1 = new Date();
+                        if (offset != -1) {
+                            var d = new Date(d1.getUTCFullYear(), d1.getUTCMonth(), d1.getUTCDate(), d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds())
+                            var hours = d.getHours()+offset;
+                        } else {
+                            d = d1;
+                            hours = d.getHours();
+                        }
+                        var minutes = d.getMinutes();
+                        var ampm = hours <= 11 ? 'am' : 'pm';
+                        time.innerHTML = [hours % 12,
+                                    (minutes < 10 ? "0" + minutes : minutes)
+                                ].join(':') + ampm;
+                        setTimeout(timer, 10000);
+                    }
+
+                    getDate();
+                    timer();
+                </script>
 
                 <div id="gauge-container">
                     <div id="temp-container" class="radial-shadow" style="float: left;">

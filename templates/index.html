@@ -53,8 +53,9 @@
                         setTimeout(timer, 1000);
                         var d1 = new Date();
                         if (offset != -1) {
-                            var d = new Date(d1.getUTCFullYear(), d1.getUTCMonth(), d1.getUTCDate(), d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds())
-                            var hours = d.getHours()+offset;
+                            var d = new Date(d1.getUTCFullYear(), d1.getUTCMonth(), d1.getUTCDate(), d1.getUTCHours(), d1.getUTCMinutes(), d1.getUTCSeconds());
+                            d.setHours(d.getHours() + offset);
+                            var hours = d.getHours();
                         } else {
                             d = d1;
                             hours = d.getHours();

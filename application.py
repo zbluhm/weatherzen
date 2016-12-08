@@ -6,7 +6,7 @@ from flask_restful import Api
 from application.models import Types
 from application.models import Gifs
 from application.models import Userdata
-from application.models import Zips
+from application.models import Zipsnew
 from application import db
 from SaferProxyFix import SaferProxyFix
 from application.forms import ZipSearchForm
@@ -97,7 +97,8 @@ def get_vid_url(wtype):
 
 def get_timezone(zipcode):
     try:
-        return Zips.query.filter_by(zip=zipcode).all()[0].timezone
+        print zipcode['zip']
+        return Zipsnew.query.filter_by(zip=zipcode['zip']).all()[0].timezone
     except:
         return None
 
@@ -135,7 +136,7 @@ def lookupIP(ip):
 
 def convert_zip(zip):
     try:
-        item=random.choice(Zips.query.filter_by(zip=zip['zip']).all())
+        item=random.choice(Zipsnew.query.filter_by(zip=zip['zip']).all())
         coords = item.longitude, item.latitude, item.city
         return coords
     except:
